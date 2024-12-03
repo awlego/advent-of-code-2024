@@ -1,3 +1,18 @@
-env3.10/
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.vscode/
+.idea/
+
+# Input files
 inputs/
 .DS_Store
+
+# venv
+env3.10/
