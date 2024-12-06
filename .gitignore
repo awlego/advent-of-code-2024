@@ -16,3 +16,6 @@ inputs/
 
 # venv
 env3.10/
+
+# profiling outputs
+profile_output*
