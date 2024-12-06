@@ -199,3 +199,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# how might I optimize part 2?
+# 1. save the input text with a deepcopy so I can restore from memory instead of reconstructing from disk every time
+# 2. memoize the timesteps?
+# 3. run on multiple processes
+# 4. instead of taking one step at a time per timestamp, "slide" the full distance that the guard would go.
+# 5 
