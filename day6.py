@@ -206,4 +206,4 @@ if __name__ == "__main__":
 # 2. memoize the timesteps?
 # 3. run on multiple processes
 # 4. instead of taking one step at a time per timestamp, "slide" the full distance that the guard would go.
-# 5 
+# 5 only check putting blocks on squares that we know the guard will visit (via part 1)
