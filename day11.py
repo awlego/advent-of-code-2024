@@ -89,10 +89,10 @@ def cache_blinks(func):
     return wrapper
 
 @cache_blinks
-def blink(stones: List[int]) -> List[int]:
-    new_stones = []
+def blink(stones: set[int]) -> List[int]:
+    new_stones = set()
     for stone in stones:
-       new_stones.extend([stone for stone in apply_rules(stone)])
+       new_stones.extend(set([stone for stone in apply_rules(stone)]))
     return new_stones
 
 def solve(stones, num_blinks) -> int:
