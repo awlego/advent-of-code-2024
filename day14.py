@@ -35,7 +35,7 @@ def parse_input(filepath: str):
     robots = []
     with open(filepath, 'r') as openfile:
         for line in openfile:
-            r = re.findall("(\d+)", line)
+            r = re.findall("([-\d]+)", line)
             robots.append(Robot((int(r[0]), int(r[1])), (int(r[2]), int(r[3]))))
     return robots
 
@@ -52,7 +52,8 @@ def run_simulation(robots, w, h, seconds: int):
 
 def count_quadrants(grid):
     '''count robots in each quadrant
-    robots on boundaries do not count
+    robots on quadrant boundaries (middle row and
+    middle column do not count
     '''
     height, width = grid.shape
     mid_h, mid_w = height//2, width//2
@@ -105,7 +106,6 @@ def simulation_step(robots, grid):
     run_simulation(robots, w=w, h=h, seconds=1)
     grid = make_grid(robots, w=w, h=h)
     return grid
-
 
 
 def visualize_grid(robots, width, height, cell_size=12):
@@ -184,14 +184,15 @@ def test():
     safety_factor = prod(quadrant_counts)
     print(safety_factor)
     assert safety_factor == 12
-    visualize_grid(robots, width, height)
+    # visualize_grid(robots, width, height)
 
 
 def main():
     test()
 
     robots = parse_input("inputs/day14_input.txt")
-
+    # for robot in robots:
+    #     print(robot)
     # robots = [robots[123]]
     # robots = [Robot((0,0),(2,1))]
     width = 101
