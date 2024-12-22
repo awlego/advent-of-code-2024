@@ -1,4 +1,5 @@
 from collections import deque
+from functools import cache
 
 def parse_input(input="inputs/day19_input.txt"):
     with open(input, 'r') as openfile:
@@ -12,8 +13,7 @@ def parse_input(input="inputs/day19_input.txt"):
         designs = [d.strip() for d in designs]
     return avail_patterns, designs
 
-
-def is_design_possible_km(avail_patterns, design, patterns_used=[], level=0):
+def is_design_possible_km(avail_patterns, design):
     '''
     1 if true
     0 if false
@@ -22,18 +22,22 @@ def is_design_possible_km(avail_patterns, design, patterns_used=[], level=0):
     m = len(design)
     O(k^m)
     '''
-    if design == "":
-        return 1
+    @cache
+    def helper(patterns_tuple, design):
+        if design == "":
+            return 1
+            
+        for pattern in patterns_tuple:
+            n = len(pattern)
+            if design[0:n] == pattern:
+                return helper(patterns_tuple, design[n:])
 
-    for pattern in avail_patterns:
-        n = len(pattern)
-        if design[0:n] == pattern:
-            patterns_used.append(pattern)
-            pos = is_design_possible(avail_patterns, design[n:], patterns_used, level=level+1)
-            if pos:
-                return 1
-
-    return 0
+        return 0
+    
+    patterns_tuple = tuple(avail_patterns)
+    design_tuple = tuple(design)
+    print(type(patterns_tuple), type(design_tuple))
+    return helper(patterns_tuple, design_tuple)
 
 class TrieNode:
     def __init__(self):
@@ -143,3 +147,5 @@ print()
 avail_patterns, designs = parse_input('inputs/day19_input.txt')
 print(num_possible_designs(avail_patterns, designs, False))
 print(num_possible_designs(avail_patterns, designs, True))
+
+print(is_design_possible_km(avail_patterns, designs))
